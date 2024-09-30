@@ -1,0 +1,19 @@
+version: '3'
+services:
+  book-post-app:
+    build: ./book-post-app
+    ports:
+      - "3001:3001"
+    networks:
+      - my-network
+
+  book-api:
+    build: ./book-api
+    ports:
+      - "3000:3000"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge

@@ -5,6 +5,5 @@
     <mapping directory="$PROJECT_DIR$/book-api" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/book-post-app" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/kafdrop" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/product" vcs="Git" />
   </component>
 </project>

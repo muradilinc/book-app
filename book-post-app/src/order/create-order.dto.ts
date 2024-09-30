@@ -4,5 +4,10 @@ export class CreateOrderDto {
     user: number;
     product: number;
     count: number;
-    status: OrderStatus
+    status: OrderStatus;
+}
+
+export class UpdateOrderDto {
+    id: string;
+    status: OrderStatus;
 }

@@ -1,8 +1,8 @@
 import {Controller} from '@nestjs/common';
 import {DatabaseService} from "../database/database.service";
 import {MessagePattern, Payload} from "@nestjs/microservices";
-import {CreateOrderDto} from "./create-order.dto";
-import {OrderStatus} from "@prisma/client";
+import {CreateOrderDto, UpdateOrderDto} from "./create-order.dto";
+import {Order, OrderStatus} from "@prisma/client";
 
 @Controller('order')
 export class OrderController {
@@ -30,6 +30,11 @@ export class OrderController {
     @MessagePattern('get.single.order')
     getSingleOrder(@Payload() id: string) {
         return this.prisma.order.findUnique({where: {id: Number(id)}});
+    }
+
+    @MessagePattern('update.single.order')
+    updateSingleOrder(@Payload() updateOrder: UpdateOrderDto) {
+        return this.prisma.order.update({where: {id: Number(updateOrder.id)}, data: {status: updateOrder.status}})
     }
 
     @MessagePattern('delete.single.order')
