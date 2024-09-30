@@ -2,12 +2,14 @@ import {Controller} from '@nestjs/common';
 // import {DatabaseService} from "../database/database.service";
 import {CreateBookDto} from "./create-book.dto";
 import {MessagePattern, Payload} from "@nestjs/microservices";
+import {CreateProductDto} from "../product/create-product.dto";
+import {DatabaseService} from "../database/database.service";
 
 @Controller('post')
 export class PostController {
     books: CreateBookDto[]
 
-    constructor() {
+    constructor(private prisma: DatabaseService) {
         this.books = [];
     }
 
@@ -18,6 +20,19 @@ export class PostController {
         // return this.prisma.book.create({
         //     data: bookDto
         // });
+    }
+
+    @MessagePattern('post.new.product')
+    async createProduct(@Payload() productDto: CreateProductDto) {
+        const product = await this.prisma.product.create({
+            data: productDto,
+        });
+        return product;
+    }
+
+    @MessagePattern('get.list.product')
+    getProducts(){
+        return this.prisma.product.findMany();
     }
 
     @MessagePattern('get.list.book')
